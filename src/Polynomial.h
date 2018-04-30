@@ -61,5 +61,7 @@ public:
 	{
 		return (-right).operator+(left);
 	}
+
+	double horners_method(double x);
 };
 

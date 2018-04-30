@@ -246,12 +246,28 @@ string Polynomial::serialize()
 
 double Polynomial::operator()(double x)
 {
-	double acc = 0;
+	if (n == 0) return std::numeric_limits<double>::quiet_NaN();
 
+	double acc = 0;
+	const auto c_cf = coeff.data();
 	for_dim(i)
 	{
-		acc += coeff.at(i)*pow(x, i);
+		acc += c_cf[i]*pow(x, i);
 	}
 
 	return acc;
+}
+
+double Polynomial::horners_method(double x)
+{
+	if (n == 0) return std::numeric_limits<double>::quiet_NaN();
+
+	double b = coeff.back();
+	const auto c_cf = coeff.data();
+	for (int i = coeff.size() - 2; i >= 0; --i)
+	{
+		b = c_cf[i] + b * x;
+	}
+
+	return b;
 }
