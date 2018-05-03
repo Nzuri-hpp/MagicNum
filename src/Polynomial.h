@@ -17,7 +17,7 @@ public:
 	};
 	struct errcode
 	{
-		enum codes { DIFFERENCE_SIZE, BAD_INDEX };
+		enum codes { DIFFERENCE_SIZE, BAD_INDEX, EQUALS_SIGNS, EMPTY_SIZE };
 	};
 
 	Polynomial();
@@ -47,6 +47,8 @@ public:
 	Polynomial operator-();
 	double& at(size_t i);
 	double  safe_at(int i);
+	double at_end();
+	double at_begin();
 	Polynomial der();
 	Polynomial der_by_coeff(size_t i);
 	friend Polynomial operator*(double left, Polynomial& right)
@@ -63,5 +65,25 @@ public:
 	}
 
 	double horners_method(double x);
+
+	Polynomial operator/(Polynomial & right);
+	Polynomial mod(Polynomial & right);
+	pair<Polynomial, Polynomial> sub(Polynomial & right);
+
+	size_t degree();
+	double restrict(double epsilon = DBL_EPSILON);
+	static Polynomial x_pow(size_t pow);
+
+	size_t sturms_method(double a, double b);
+
+	double pricisie_root(double a, double b);
+	vector<double> pricisie_all_roots(double a, double b, double base_step = 10.);
+
+	static Polynomial zero();
+	static Polynomial constant(double c);
+
+	void take_normal();
+	double drop_back();
+
 };
 
